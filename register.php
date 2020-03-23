@@ -1,8 +1,8 @@
 <?php
 require_once 'init.php';
 
-$validator = new Validate();
-$validation = $validator->check($_POST, [
+$validate = new Validate();
+ $validate->check($_POST, [
     'name' => [
         'required' => true,
         'min' => '3',
@@ -31,7 +31,7 @@ $validation = $validator->check($_POST, [
 ]);
 if (Input::exists('post')) {
 if (Token::check(Input::get('token'))) {
-if ($validation->passed()) {
+if ($validate->passed()) {
 // создание пользователя  и хеширование пароля
     $user = new User;
     $user->create([
@@ -50,7 +50,7 @@ if ($validation->passed()) {
 } else {
 
     $viewError=[];
-    foreach ($validation->errors() as $error) {
+    foreach ($validate->errors() as $error) {
         $viewError[] ='<li>'.$error.'</li>';
     }
     $viewErrors = implode($viewError);

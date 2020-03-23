@@ -32,7 +32,7 @@ class Session
 
     {
         // проверяет существует ли сессия
-        if (self::exists($name) && self::exists($name) !== '') {
+        if (self::exists($name) && self::get($name) !=='') {
             //получает flash сообщение
            $session = self::get($name);
           self::delete($name);

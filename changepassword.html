@@ -31,7 +31,7 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <li class="nav-item">
-              <a href="profile.html" class="nav-link">Профиль</a>
+              <a href="profile.php" class="nav-link">Профиль</a>
             </li>
             <a href="#" class="nav-link">Выйти</a>
           </li>
@@ -51,7 +51,7 @@
            </ul>
          </div>
          <ul>
-           <li><a href="profile.html">Изменить профиль</a></li>
+           <li><a href="profile.php">Изменить профиль</a></li>
          </ul>
          <form action="" class="form">
            <div class="form-group">

@@ -6,7 +6,7 @@ if (input::exists('post')) {
         $remember = Input::get('remember') === 'on' ? true : false;
         //валидация
         $validate = new Validate();
-        $validation = $validate->check($_POST, [
+        $validate->check($_POST, [
             'email' => ['required' => true, 'email' => 'email'],
             'password' => ['required' => true]
         ]);
@@ -19,14 +19,14 @@ if (input::exists('post')) {
             $errorMassage = '';
             if ($login) {
                 Session::flash('success', 'logged in successfully');
-                Redirect::to('/index.php');
+                Redirect::to('/profile.php');
             } else {
                 $errorMassage = 'Логин или пароль неверны';
             }
         } else {
 
             $viewError=[];
-            foreach ($validation->errors() as $error) {
+            foreach ($validate->errors() as $error) {
                 $viewError[] ='<li>'.$error.'</li>';
             }
             $viewErrors = implode($viewError);
