@@ -6,7 +6,7 @@ $GLOBALS['config'] = [
         'host' => 'localhost', // альтернатива '127.0.0.1' - адрес хоста, в нашем случае локального
         'username' => 'root',  // имя пользователя для базы данных
         'password' => '', // пароль пользователя
-        'database' => 'MarlinOopComponetsDataBase', // имя базы данных
+        'database' => 'user_management_system', // имя базы данных
         'charset' => 'utf8', // кодировка по умолчанию
 
     ],

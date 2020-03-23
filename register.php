@@ -1,58 +1,95 @@
+<?php
+require_once 'init.php';
 
-<?php echo 'test' ?>
+$validator = new Validate();
+$validation = $validator->check($_POST, [
+    'name' => [
+        'required' => true,
+        'min' => '3',
+        'max' => '15',
+        'uniqie' => 'users'
+    ],
+    'email' => [
+        'required' => true,
+        'email' => true,
+        'uniqie' => 'users'
+    ],
+    'password' => [
+        'required' => true,
+        'min' => '5',
+    ],
+    'password_again' => [
+        'required' => true,
+        'matches' => 'password',
+    ],
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Register</title>
-	
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <!-- Bootstrap core CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
-  </head>
+    'rules'=>[
+        'required' => true,
 
-  <body class="text-center">
-    <form class="form-signin">
-    	  <img class="mb-4" src="images/apple-touch-icon.png" alt="" width="72" height="72">
-    	  <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+    ],
 
+]);
+if (Input::exists('post')) {
+if (Token::check(Input::get('token'))) {
+if ($validation->passed()) {
+// создание пользователя  и хеширование пароля
+    $user = new User;
+    $user->create([
+        'name' => Input::get('name'),
+        'password' => password_hash(Input::get('name'), PASSWORD_DEFAULT),
+        'email' => Input::get('email'),
+        'date' => date("d/m/Y"),
+
+    ]);
+    Session::flash('success', 'register success');
+
+//перенаправляет страницу
+    Redirect::to('/index.php');
+
+
+} else {
+
+    $viewError=[];
+    foreach ($validation->errors() as $error) {
+        $viewError[] ='<li>'.$error.'</li>';
+    }
+    $viewErrors = implode($viewError);
+}
+}
+}
+
+?>
+   <? require_once 'Components/inludes/header.php';?>
+    <form class="form-signin" action="" method="post">
+        <img class="mb-4" src="images/apple-touch-icon.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+
+        <?php if($viewErrors != null){?>
         <div class="alert alert-danger">
-          <ul>
-            <li>Ошибка валидации 1</li>
-            <li>Ошибка валидации 2</li>
-            <li>Ошибка валидации 3</li>
-          </ul>
-        </div>
-
-        <div class="alert alert-success">
-          Успешный успех
-        </div>
-
-        <div class="alert alert-info">
-          Информация
-        </div>
-
-    	  <div class="form-group">
-          <input type="email" class="form-control" id="email" placeholder="Email">
+            <ul>
+              <?php echo $viewErrors ?>
+            </ul>
+            </div>
+        <?php }?>
+          	  <div class="form-group">
+          <input name="email" type="email" class="form-control" id="email" placeholder="Email" value="<?php echo Input::get('email') ?>">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="name" placeholder="Ваше имя">
+          <input name="name" type="text" class="form-control" id="name" placeholder="Ваше имя" value="<?php echo Input::get('name') ?>">
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" id="password" placeholder="Пароль">
+          <input name="password" type="password" class="form-control" id="password" placeholder="Пароль">
         </div>
         
         <div class="form-group">
-          <input type="password" class="form-control" id="password" placeholder="Повторите пароль">
+          <input name="password_again" type="password" class="form-control" id="password_again" placeholder="Повторите пароль">
         </div>
-
+        <div class="form-group">
+            <input name="token" type="hidden" class="form-control" value="<?php echo Token::generate() ?>">
+        </div>
     	  <div class="checkbox mb-3">
     	    <label>
-    	      <input type="checkbox"> Согласен со всеми правилами
+    	      <input  name="rules" type="checkbox" > Согласен со всеми правилами
     	    </label>
     	  </div>
     	  <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
