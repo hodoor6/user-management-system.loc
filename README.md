@@ -1,0 +1,2 @@
+<p>Дипломный проект по разработке на PHP. Реализацией функционала в предоставленой верстке для диплома</p>
+<p>Реализация проекта с помощью написаных до этого компонентов <a href="https://github.com/hodoor6/MarlinOOPintensiv">https://github.com/hodoor6/MarlinOOPintensiv</a></p>
