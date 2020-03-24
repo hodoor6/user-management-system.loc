@@ -1,8 +1,16 @@
+<?php
+
+require_once'init.php';
+
+$user = new User;
+$users = $user->getAllUsers();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Profile</title>
+  <title>Главная страница</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -11,30 +19,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">User Management</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Главная</a>
-          </li>
-        </ul>
-
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="#" class="nav-link">Войти</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">Регистрация</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+<!--подключение меню пользователя-->
+<? require_once 'Components/inludes/user-menu.php' ?>
 
   <div class="container">
     <div class="row">
@@ -63,26 +50,16 @@
           </thead>
 
           <tbody>
-            <tr>
-              <td>1</td>
-              <td><a href="#">Rahim</a></td>
-              <td>rahim@marlindev.ru</td>
-              <td>12/03/2025</td>
+          <? foreach ($users as $user):  ?>
+          <tr>
+              <td><?=$user->id?></td>
+              <td><a href="user_profile.php?id=<?=$user->id?>"><?=$user->name?></a></td>
+              <td><?=$user->email?></td>
+              <td><?=$user->date?></td>
             </tr>
+          <?   endforeach; ?>
 
-            <tr>
-              <td>2</td>
-              <td><a href="#">John</a></td>
-              <td>john@marlindev.ru</td>
-              <td>12/03/2025</td>
-            </tr>
 
-            <tr>
-              <td>3</td>
-              <td><a href="#">Jane</a></td>
-              <td>jane@marlindev.ru</td>
-              <td>12/03/2025</td>
-            </tr>
           </tbody>
         </table>
       </div>

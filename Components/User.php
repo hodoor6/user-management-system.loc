@@ -6,6 +6,7 @@ class User
 // $session_name - название сесии при авторизации
     private $db = null, $data = null, $session_name = null, $isLoggedIn, $cookieName;
 
+
 //подключение к баз данных
     public function __construct($user = null)
     {
@@ -137,9 +138,10 @@ class User
         return password_verify($passwordForCheck, $passwordHash);
 
     }
- /**
-   * Проверка прав доступа (роли). Принадлежность к группе
- */
+
+    /**
+     * Проверка прав доступа (роли). Принадлежность к группе
+     */
     public function hasPermissions($key = null)
     {
         if ($key) {
@@ -148,15 +150,25 @@ class User
                 $permissions = $group->first()->permissions;
                 // конвертация json данных в php массив
                 $permissions = json_decode($permissions, true);
-            //проверка на совпадение с ролью
-                if (is_array($permissions)  && $permissions[$key])
-                {
+                //проверка на совпадение с ролью
+                if (is_array($permissions) && $permissions[$key]) {
                     return true;
                 }
             }
         }
         return false;
 
+    }
+
+    // вывод всех пользователей
+    public function getAllUsers()
+    {
+        return  $this->db->get('users', ['id', '>', '0'])->results();
+    }
+
+    public function getOneUser($id)
+    {
+        return $this->db->get('users', ['id', '=', $id])->first();
     }
 
 }

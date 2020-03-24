@@ -45,39 +45,9 @@ Session::flash('success', ' <div class="alert alert-success">Пароль обн
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-  
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <? if($user->hasPermissions('admin')){?>
-          <a class="navbar-brand" href="users/index.php">Admin Management</a>
-      <?  } else{ ?>
-          <a class="navbar-brand" href="user_profile.php">User Management</a>
-      <?  }?>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Главная</a>
-          </li>
-            <? if($user->hasPermissions('admin')){?>
-                <li class="nav-item">
-                    <a class="nav-link" href="users/index.php">Управление пользователями</a>
-                </li>
-            <?  }?>
-        </ul>
-
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <li class="nav-item">
-              <a href="profile.php" class="nav-link">Профиль</a>
-            </li>
-            <a href="logout.php" class="nav-link">Выйти</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+<!--подключение меню пользователя-->
+<? require_once 'Components/inludes/user-menu.php' ?>
 
    <div class="container">
      <div class="row">

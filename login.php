@@ -33,6 +33,9 @@ if (input::exists('post')) {
 ?>
 
 <?php require_once 'Components/inludes/header.php'; ?>
+
+<!--подключение меню пользователя-->
+<? require_once 'Components/inludes/user-menu.php' ?>
 <body class="text-center">
 <form class="form-signin" action="" method="post">
     <img class="mb-4" src="images/apple-touch-icon.png" alt="" width="72" height="72">
