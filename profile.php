@@ -49,14 +49,13 @@ $user = new User;
             <h1>Профиль пользователя - <?php echo $user->data()->name ?></h1>
 
             <?php echo Session::flash('success');
-            if ($viewErrors != null) {
-                ?>
+            if ($viewErrors != null) : ?>
                 <div class="alert alert-danger">
                     <ul>
                         <?php echo $viewErrors ?>
                     </ul>
                 </div>
-            <?php } ?>
+            <?php endif; ?>
             <ul>
                 <li><a href="changepassword.php">Изменить пароль</a></li>
             </ul>

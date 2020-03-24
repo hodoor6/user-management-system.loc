@@ -60,8 +60,6 @@ if ($validate->passed()) {
 
 ?>
    <? require_once 'Components/inludes/header.php';?>
-<!--подключение меню пользователя-->
-<? require_once 'Components/inludes/user-menu.php' ?>
 
     <form class="form-signin" action="" method="post">
         <img class="mb-4" src="images/apple-touch-icon.png" alt="" width="72" height="72">

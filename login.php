@@ -22,54 +22,50 @@ if (input::exists('post')) {
                 $errorMassage = 'Логин или пароль неверны';
             }
         } else {
-            $viewError = [];
+            $viewError=[];
             foreach ($validate->errors() as $error) {
-                $viewError[] = '<li>' . $error . '</li>';
+                $viewError[] ='<li>'.$error.'</li>';
             }
             $viewErrors = implode($viewError);
+            }
         }
-    }
 }
 ?>
 
 <?php require_once 'Components/inludes/header.php'; ?>
-
-<!--подключение меню пользователя-->
-<? require_once 'Components/inludes/user-menu.php' ?>
-<body class="text-center">
-<form class="form-signin" action="" method="post">
-    <img class="mb-4" src="images/apple-touch-icon.png" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Авторизация</h1>
-    <?php if ($viewErrors != null) { ?>
-        <div class="alert alert-danger">
-            <ul>
-                <?php echo $viewErrors ?>
-            </ul>
-        </div>
-    <?php } ?>
-    <?php if (!empty($errorMassage)) { ?>
+  <body class="text-center">
+    <form class="form-signin" action="" method="post">
+    	  <img class="mb-4" src="images/apple-touch-icon.png" alt="" width="72" height="72">
+    	  <h1 class="h3 mb-3 font-weight-normal">Авторизация</h1>
+        <?php if($viewErrors != null){?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php echo $viewErrors ?>
+                </ul>
+            </div>
+        <?php }?>
+        <?php if(!empty($errorMassage)){?>
         <div class="alert alert-info">
             <?php echo $errorMassage ?>
         </div>
-    <?php } ?>
-    <div class="form-group">
-        <input type="email" class="form-control" id="email" placeholder="Email" name="email"
-               value="<?php echo Input::get('email') ?>">
-    </div>
-    <div class="form-group">
-        <input type="password" class="form-control" id="password" placeholder="Пароль" name="password">
-    </div>
+        <?php }?>
+    	  <div class="form-group">
+          <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="<?php echo Input::get('email') ?>">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="password" placeholder="Пароль" name="password">
+        </div>
 
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="remember"> Запомнить меня
-        </label>
-    </div>
-    <div class="form-group">
-        <input name="token" type="hidden" class="form-control" value="<?php echo Token::generate() ?>">
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
-</form>
+    	  <div class="checkbox mb-3">
+    	    <label>
+    	      <input type="checkbox" name="remember"> Запомнить меня
+    	    </label>
+    	  </div>
+        <div class="form-group">
+            <input name="token" type="hidden" class="form-control" value="<?php echo Token::generate() ?>">
+        </div>
+    	  <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+    	  <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+    </form>
 </body>
 </html>
