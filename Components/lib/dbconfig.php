@@ -33,7 +33,13 @@ $GLOBALS['config'] = [
 
         ],
 
-    ]
+
+
+    ],
+
+     'form' => [
+         'field_token' =>'csrf'
+]
 
 
 ];

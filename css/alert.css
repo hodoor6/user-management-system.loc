@@ -1,0 +1,18 @@
+
+.alert-message .alert-icon {
+    width: 3rem;
+}
+.alert-message .close{
+    font-size: 1rem;
+    color: #a6a6a6;
+}
+.alert-primary .alert-icon {
+    background-color: #b8daff;
+}
+.alert-success .alert-icon {
+    background-color: #c3e6cb;
+}
+
+.alert-danger .alert-icon {
+    background-color: #f5c6cb;
+}

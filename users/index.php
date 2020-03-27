@@ -24,25 +24,9 @@ if($user->hasPermissions('admin')){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-
+<link href="/css/alert.css" rel="stylesheet">
     <style>
-        .alert-message .alert-icon {
-            width: 3rem;
-        }
-        .alert-message .close{
-            font-size: 1rem;
-            color: #a6a6a6;
-        }
-        .alert-primary .alert-icon {
-            background-color: #b8daff;
-        }
-        .alert-success .alert-icon {
-            background-color: #c3e6cb;
-        }
 
-        .alert-danger .alert-icon {
-            background-color: #f5c6cb;
-        }
     </style>
 
 </head>
