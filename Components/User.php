@@ -171,4 +171,10 @@ class User
         return $this->db->get('users', ['id', '=', $id])->first();
     }
 
+
+    public function delete($id){
+
+        return $this->db->delete('users', ['id', '=', $id]);
+    }
+
 }

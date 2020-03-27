@@ -22,6 +22,5 @@ if($hashCheck->count())
     $user->login();
 
 }
-
-
 }
+$user= new User;

@@ -2,16 +2,18 @@
 
 class Session
 {
-      //создаем сессию при генерации токена
+    //создаем сессию при генерации токена
     public static function put($name, $value)
     {
         return $_SESSION[$name] = $value;
     }
+
 // проверяем на существования токена если существует возращаем true
     public static function exists($name)
     {
         return (isset($_SESSION[$name])) ? true : false;
     }
+
 // удаляем данные с сессии
     public static function delete($name)
     {
@@ -20,6 +22,7 @@ class Session
             unset($_SESSION[$name]);
         }
     }
+
 // получаем данные с сессии
     public static function get($name)
     {
@@ -28,22 +31,20 @@ class Session
 
     //метод flash для вывода одноразовых сообщенный
 
-    public static function flash($name,$message = '')
+    public static function flash($name, $message = '')
 
     {
         // проверяет существует ли сессия
-        if (self::exists($name) && self::get($name) !=='') {
+        if (self::exists($name) && self::get($name) !== '') {
             //получает flash сообщение
-           $session = self::get($name);
-          self::delete($name);
-          // возвращаем полученное сообщение
-          return  $session;
-        }else{
-            //записивает в сессию сообщение
-            self::put($name,$message);
+            $session = self::get($name);
+            self::delete($name);
+            // возвращаем полученное сообщение
+            return $session;
+        } else {
+            //записывает в сессию сообщение
+            self::put($name, $message);
         }
-
-
     }
 
 }

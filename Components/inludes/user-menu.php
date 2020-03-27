@@ -19,6 +19,7 @@
         </ul>
 
         <ul class="navbar-nav">
+
             <?php if(!$user->isLoggedIn()) :?>
                 <li class="nav-item">
                     <a href="/login.php" class="nav-link">Войти</a>
@@ -28,7 +29,10 @@
                 </li>
             <? else: ?>
                 <li class="nav-item">
+                    <a href="/profile.php" class="nav-link">Имя - <?=$user->data()->name?></a>
+                </li>   <li class="nav-item">
                     <a href="/profile.php" class="nav-link">Профиль</a>
+
                 </li>
                 <a href="/logout.php" class="nav-link">Выйти</a>
                 </li>

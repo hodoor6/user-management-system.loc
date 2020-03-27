@@ -42,3 +42,14 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.alert-message .alert-icon {
+  width: 3rem;
+}
+.alert-message .close{
+  font-size: 1rem;
+  color: #a6a6a6;
+}
+.alert-primary .alert-icon {
+  background-color: #b8daff;
+}
