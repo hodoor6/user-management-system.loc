@@ -1,15 +1,17 @@
 <?php
 session_start();
-require_once 'Components/lib/dbconfig.php';
-require_once 'Components/DataBase.php';
-require_once 'Components/Config.php';
-require_once 'Components/Validate.php';
-require_once 'Components/Input.php';
-require_once 'Components/Token.php';
-require_once 'Components/Session.php';
-require_once 'Components/User.php';
-require_once 'Components/Redirect.php';
-require_once 'Components/Cookie.php';
+
+require_once($_SERVER['DOCUMENT_ROOT'] .'/Components/Config.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/config/dbconfig.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/Components/DataBase.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/Components/Validate.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/Components/Input.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/Components/Token.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/Components/Session.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/Components/Redirect.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/Components/Cookie.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/app/model/Model.php');
+require_once($_SERVER['DOCUMENT_ROOT'] .'/app/controller/User.php');
 
 
 if(Cookie::exists(Config::get('cookie.cookie_name')) && !Session::exists(Config::get('session.user_session'))){

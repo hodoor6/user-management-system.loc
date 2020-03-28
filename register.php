@@ -30,7 +30,7 @@ $validate = new Validate();
 
 ]);
 if (Input::exists('post')) {
-if (Token::check(Input::get('token'))) {
+if (Token::check(Input::get(Config::get('form.field_token')))) {
 if ($validate->passed()) {
 // создание пользователя  и хеширование пароля
     $user = new User;
@@ -41,10 +41,9 @@ if ($validate->passed()) {
         'date' => date("d/m/Y"),
 
     ]);
-    Session::flash('success', 'register success');
+    Session::flash('success', 'Регистрация прошла успешно.');
+    Session::flash('info', 'Для авторизации перейдите на');
 
-//перенаправляет страницу
-    Redirect::to('/index.php');
 
 
 } else {
@@ -64,7 +63,18 @@ if ($validate->passed()) {
     <form class="form-signin" action="" method="post">
         <img class="mb-4" src="images/apple-touch-icon.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+        <?php if(Session::exists('success')):?>
+            <div class="alert alert-success">
+                <? echo Session::flash('success')?>
+            </div>
+        <?php endif;?>
 
+        <?php if(Session::exists('info')):?>
+            <div class="alert alert-info">
+              <? echo Session::flash('info')?>
+                   <a href="<?=Config::get('links.login')?>">страницу входа</a>
+            </div>
+        <?php endif;?>
         <?php if($viewErrors != null){?>
         <div class="alert alert-danger">
             <ul>
@@ -86,7 +96,7 @@ if ($validate->passed()) {
           <input name="password_again" type="password" class="form-control" id="password_again" placeholder="Повторите пароль">
         </div>
         <div class="form-group">
-            <input name="token" type="hidden" class="form-control" value="<?php echo Token::generate() ?>">
+            <input name="<?= Config::get('form.field_token') ?>" type="hidden" class="form-control" value="<?php echo Token::generate() ?>">
         </div>
     	  <div class="checkbox mb-3">
     	    <label>

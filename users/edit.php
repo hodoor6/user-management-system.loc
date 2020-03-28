@@ -33,7 +33,7 @@ if (input::exists('post')) {
             $update = $user->update(['name' => Input::get('name'), 'status' => Input::get('status')], Input::get('id'));
             Session::flash('success', 'Профиль успешно  обновлён');
             Redirect::to(Config::get('links.admin.edit') . '?id=' . Input::get('id'));
-            exit;
+            exit();
         } else {
             $viewError = [];
             foreach ($validate->errors() as $error) {
@@ -114,5 +114,4 @@ if (input::exists('post')) {
         </div>
     </div>
 </div>
-</body>
-</html>
+<? require_once($_SERVER['DOCUMENT_ROOT'] .'/Components/inludes/footer.php') ?>

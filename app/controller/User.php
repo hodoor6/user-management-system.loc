@@ -1,7 +1,7 @@
 <?php
 
 
-class User
+class User extends Model
 {
 // $session_name - название сесии при авторизации
     private $db = null, $data = null, $session_name = null, $isLoggedIn, $cookieName;
@@ -10,6 +10,8 @@ class User
 //подключение к баз данных
     public function __construct($user = null)
     {
+
+        parent::__construct();
         $this->db = DataBase::getInstance();
         //получение имени сессии из $GLOBALS['config'] для дальнейшей использования
         $this->session_name = Config::get('session.user_session');
@@ -30,11 +32,6 @@ class User
         }
     }
 
-// создание пользователя //добавление пользователя в базу
-    public function create($fields = [])
-    {
-        $this->db->insert('users', $fields);
-    }
 
 // обертка над update - обновление данных с формы
     public function update($fields = [], $id = null)
@@ -160,21 +157,6 @@ class User
 
     }
 
-    // вывод всех пользователей
-    public function getAllUsers()
-    {
-        return  $this->db->get('users', ['id', '>', '0'])->results();
-    }
 
-    public function getOneUser($id)
-    {
-        return $this->db->get('users', ['id', '=', $id])->first();
-    }
-
-
-    public function delete($id){
-
-        return $this->db->delete('users', ['id', '=', $id]);
-    }
 
 }

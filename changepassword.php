@@ -1,8 +1,8 @@
 <?php
 require_once 'init.php';
-$user = new User;
+
 if (input::exists('post')) {
-if (Token::check(Input::get('token'))) {
+if (Token::check(Input::get(Config::get('form.field_token')))) {
 $validate = new Validate();
 $validate->check($_POST, [
 'current_password' => ['required' => true, 'min' => 6],
@@ -15,10 +15,13 @@ if ($validate->passed()) {
 if($user->checkPassword(Input::get('current_password'))){
 // обновление  пароля пользователя
 $update = $user->update(['password' => password_hash(Input::get('new_password'), PASSWORD_DEFAULT)]);
-Session::flash('success', ' <div class="alert alert-success">Пароль обновлен</div>');
-
+Session::flash('success', 'Пароль успешно обновлен');
+Redirect::to(Config::get('links.change_password'));
+exit();
 }else{
-    Session::flash('error-current_password', ' <div class="alert alert-danger">Неправильно веден текущий пароль</div>');
+    Session::flash('info', 'Неправильно веден текущий пароль');
+    Redirect::to(Config::get('links.change_password'));
+    exit();
 }
 } else {
     $viewError=[];
@@ -43,6 +46,8 @@ Session::flash('success', ' <div class="alert alert-success">Пароль обн
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <link href="/css/alert.css" rel="stylesheet">
 </head>
 <body>
 
@@ -53,10 +58,34 @@ Session::flash('success', ' <div class="alert alert-success">Пароль обн
      <div class="row">
        <div class="col-md-8">
          <h1>Изменить пароль</h1>
-                   <?php
-           echo Session::flash('error-current_password');
-           echo Session::flash('success');
-           if($viewErrors != null){?>
+
+            <? if(Session::exists('success')): ?>
+           <div class="alert alert-success alert-message d-flex rounded p-0" role="alert">
+               <div class="alert-icon d-flex justify-content-center align-items-center flex-grow-0 flex-shrink-0 py-3">
+                   <i class="fas fa-check"></i>
+               </div>
+               <div class="d-flex align-items-center py-2 px-3">
+                   <?  echo Session::flash('success') ?>
+               </div>
+               <a href="#" class="close d-flex ml-auto justify-content-center align-items-center px-3" data-dismiss="alert">
+                   <i class="fas fa-times"></i>
+               </a>
+           </div>
+           <? endif;?>
+           <? if(Session::exists('info')): ?>
+           <div class="alert alert-primary alert-message d-flex rounded p-0" role="alert">
+               <div class="alert-icon d-flex justify-content-center align-items-center flex-grow-0 flex-shrink-0 py-3">
+                   <i class="fas fa-bullhorn"></i>
+               </div>
+               <div class="d-flex align-items-center py-2 px-3">
+                   <?  echo Session::flash('info') ?>
+               </div>
+               <a href="#" class="close d-flex ml-auto justify-content-center align-items-center px-3" data-dismiss="alert">
+                   <i class="fas fa-times"></i>
+               </a>
+           </div>
+           <? endif;?>
+        <? if($viewErrors != null){?>
                <div class="alert alert-danger">
                    <ul>
                        <?php echo $viewErrors ?>
@@ -64,12 +93,12 @@ Session::flash('success', ' <div class="alert alert-success">Пароль обн
                </div>
            <?php }?>
          <ul>
-           <li><a href="profile.php">Изменить профиль</a></li>
+           <li><a href="<?=Config::get('links.profile')?>">Изменить профиль</a></li>
          </ul>
          <form action="" method="post" class="form">
            <div class="form-group">
              <label for="current_password">Текущий пароль</label>
-             <input name="current_password" type="text" id="current_password" class="form-control" placeholder="Ведите текущый пароль">
+             <input name="current_password" type="text" id="current_password" class="form-control" placeholder="Ведите текущий пароль">
            </div>
            <div class="form-group">
              <label for="new_password">Новый пароль</label>
@@ -80,7 +109,7 @@ Session::flash('success', ' <div class="alert alert-success">Пароль обн
              <input name="new_password_again"type="text" id="current_password" class="form-control" placeholder="Повторите новый пароль">
            </div>
              <div class="form-group">
-                 <input type="hidden" class="form-control" name="token" value="<?php echo Token::generate() ?>">
+                 <input type="hidden" class="form-control" name="<?= Config::get('form.field_token') ?>" value="<?php echo Token::generate() ?>">
              </div>
            <div class="form-group">
              <button class="btn btn-warning">Изменить</button>

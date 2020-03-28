@@ -1,7 +1,7 @@
 <?php
 require_once 'init.php';
 if (input::exists('post')) {
-    if (Token::check(Input::get('token'))) {
+    if (Token::check(Input::get(Config::get('form.field_token')))) {
 //проверка на существование чекбокса
         $remember = Input::get('remember') === 'on' ? true : false;
         //валидация
@@ -16,8 +16,9 @@ if (input::exists('post')) {
             $login = $user->login(Input::get('email'), Input::get('password'), $remember);
             $errorMassage = '';
             if ($login) {
-                Session::flash('success', '<div class="alert alert-success">logged in successfully</div>');
-                Redirect::to('/profile.php');
+                Session::flash('success', 'Вы успешно вошли');
+                Redirect::to(Config::get('links.home'));
+                exit();
             } else {
                 $errorMassage = 'Логин или пароль неверны';
             }
@@ -62,7 +63,7 @@ if (input::exists('post')) {
     	    </label>
     	  </div>
         <div class="form-group">
-            <input name="token" type="hidden" class="form-control" value="<?php echo Token::generate() ?>">
+            <input type="hidden" class="form-control" name="<?= Config::get('form.field_token') ?>" value="<?php echo Token::generate() ?>">
         </div>
     	  <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
     	  <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>

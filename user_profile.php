@@ -1,8 +1,6 @@
 <?php
 require_once 'init.php';
-$user = new User();
-$oneUser = $user->getOneUser($_GET['id']);
-
+$oneUser = new User(Input::get('id'));
 ?>
 
 <!DOCTYPE html>
@@ -35,10 +33,10 @@ $oneUser = $user->getOneUser($_GET['id']);
 
            <tbody>
              <tr>
-               <td><?=$oneUser->id?></td>
-               <td><?=$oneUser->name?></td>
-               <td><?=$oneUser->date?></td>
-               <td><?=$oneUser->status?></td>
+               <td><?=$oneUser->data()->id?></td>
+               <td><?=$oneUser->data()->name?></td>
+               <td><?=$oneUser->data()->date?></td>
+               <td><?=$oneUser->data()->status?></td>
              </tr>
            </tbody>
          </table>
